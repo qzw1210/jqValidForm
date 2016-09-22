@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+#zfValidForm {margin-left:100px}
+            *{padding: 0;margin: 0;}
+            html,body{width: 100%;background: #fff;font-family:"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif}
+            input {margin-bottom: 20px;}
+            button {width: 60px;height: 34px;line-height: 34px;cursor: pointer;font-size: 16px;outline:none;}
+            /* #zfValidForm-core-style */
+            #zfValidForm .right2{ color:red; padding-left:20px; }
+            #zfValidForm .err2{ color:red; padding-left:20px; }
+			
+        </style>
+    </head>
+    <body>
+        <div id="zfValidForm" >
+        <p>
+            <label class="lable">用户名</label>
+            <input type="text" class="_name" >
+        </p>
+        <p>
+            <label class="lable">密码</label>
+            <input type="password" class="_pwd" >
+        </p>
+        <p>
+            <label class="lable">确认密码</label>
+            <input type="password" class="_pwd2" >
+        </p>
+        <p>
+            <label class="lable">邮箱</label>
+            <input type="text" class="_email" >
+        </p>
+         <p>
+            <label class="lable">QQ</label>
+            <input type="text" class="_Qq" >
+        </p>
+         <p>
+            <label class="lable">真实姓名</label>
+            <input type="text" class="_realname" >
+        </p>
+       <!-- <p>     //这是一个自定义添加
+            <label class="lable">真实姓名</label>
+            <input type="text" class="_real" >
+        </p>-->
+        <p>
+            <label class="lable">城市</label>
+            <select  class="_city" >
+                <option value="">所在城市</option>
+                <option value="北京">北京</option>
+                <option value="上海">上海</option>
+                <option value="广州">广州</option>
+            </select>
+        </p>
+        <p>
+            <input type="checkbox" class='_hobby' name="hobby[]" value="音乐"><label for="it1">阅读</label>
+            <input type="checkbox" class='_hobby' name="hobby[]" value="电影"><label for="it1">运动</label>
+            <input type="checkbox" class='_hobby' name="hobby[]" value="运动"><label for="it1">电影</label>
+            <input type="checkbox" class='_hobby' name="hobby[]" value="阅读"><label for="it1">音乐</label>
+        </p>
+       <!-- <p>   这是一个自定义添加
+            <input type="checkbox" class='_hobby1' name="hobby1[]" value="音乐"><label for="it1">阅读</label>
+            <input type="checkbox" class='_hobby1' name="hobby1[]" value="电影"><label for="it1">运动</label>
+            <input type="checkbox" class='_hobby1' name="hobby1[]" value="运动"><label for="it1">电影</label>
+            <input type="checkbox" class='_hobby1' name="hobby1[]" value="阅读"><label for="it1">音乐</label>
+        </p>-->
+        <p >
+	     <label class="label">性别：</label>
+	     <input type="radio" class='_gender' value="1" id="male"  name='sex'>
+	     <label for="male">男</label> 
+             <input type="radio" class='_gender' value="2" id="female" name="sex" >
+	     <label for="female">女</label>
+	 </p>
+        <p>
+            <button>注册</button>
+        </p>
+        </div>
+        <script type="text/javascript" src="jquery-1.7.2.js"></script>
+        <script type="text/javascript" src="./zfValidForm.js"></script>
+        <script>
+
+$('#zfValidForm button').click(function(){
+    var cc=    $.zfValidForm
+			({ vibconfig: {
+							"tipsmsgvibTime": 500,		//跳动表单提示跳动时间（ms）
+							"tipsmsgFadeTime1": 6500,		//跳动表单提示消失时间（ms）
+							'vebspeed':100,						//跳动表单速度时间（ms）
+							"tipsmsgFadeTimeo": 7000,		//表单提示消失时间（ms）	 tipsStyle:'1'
+							'resultbool':true
+						},
+            ruleAdd:([
+               {node:"._name", ruleType:"account",errmsg:"字母开头，6-16字符，字母数字下划线"}, //这个个数要和表单个数一致(node是class名字加一个点)
+               {node:"._pwd", ruleType:"pwd",errmsg:"字母开头，长度在6~18之间，只能包含字符、数字和下划线"}, //
+               {node:"._pwd2",node2:"._pwd", ruleType:"isEq",errmsg:["两次输入的密码不一致",'请再次输入密码']},
+               {node:"._Qq", ruleType:"isQq",errmsg:"请输入正确的QQ号"},    //
+               {node:"._realname", ruleType:"isChinese",errmsg:"请输入正确的中文名"},   //
+               {node:"._email", ruleType:"email",errmsg:"请填写正确的邮箱"},  //
+               {node:"._hobby",ruleType:"checkbox",errmsg:"请选择爱好"},
+               {node:"._gender",ruleType:"radio",errmsg:"请选择性别"},
+               {node:"._city",ruleType:"select",errmsg:"请选择所在城市"},
+			 //  {node:"._real", ruleType:"other",errmsg:"请输入正确的中文名",condition:function(){return $('._real').val()==''? true:false}},   //添加表单后 ruleType:"othor"需要加一个名字是condition的方法，这个方法要返回ture或者false
+			 //  {node:"._hobby1",ruleType:"othercheck",errmsg:"请选择爱好"},        //如果是checkbox是这种添加方式 ruleType:"othercheck"
+            ]),
+           tipsStyle:'2',   //可以选择1或者2  1是隐藏  2是跳动后隐藏
+        })
+		console.log(cc);  //返回表单验证结果
+});
+
+        </script>
+    </body>
+</html>
